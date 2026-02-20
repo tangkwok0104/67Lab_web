@@ -15,11 +15,17 @@ export default function FeedbackPage() {
         email: "",
         subject: "",
         message: "",
+        website: "", // Honeypot
     });
     const [agreed, setAgreed] = useState(false);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+
+        // Honeypot check: if filled, abort silently
+        if (formData.website) {
+            return;
+        }
 
         if (!agreed) {
             alert("Please agree to the Terms, Privacy Policy, and SLA to proceed.");
@@ -41,7 +47,7 @@ export default function FeedbackPage() {
 
         // Reset form after 3 seconds
         setTimeout(() => {
-            setFormData({ name: "", email: "", subject: "", message: "" });
+            setFormData({ name: "", email: "", subject: "", message: "", website: "" });
             setSubmitted(false);
         }, 3000);
     };
@@ -125,6 +131,16 @@ export default function FeedbackPage() {
                                     </motion.div>
                                 ) : (
                                     <form onSubmit={handleSubmit} className="space-y-6">
+                                        {/* Honeypot - invisible to real users */}
+                                        <input
+                                            type="url"
+                                            name="website"
+                                            value={formData.website}
+                                            onChange={(e) => setFormData({ ...formData, website: e.target.value })}
+                                            tabIndex={-1}
+                                            autoComplete="off"
+                                            className="absolute -z-10 h-0 w-0 overflow-hidden opacity-0"
+                                        />
                                         {/* Name */}
                                         <div>
                                             <label className="mb-2 block text-sm font-medium">

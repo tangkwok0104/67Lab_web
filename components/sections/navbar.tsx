@@ -26,8 +26,8 @@ export function Navbar() {
     return (
         <nav
             className={`fixed left-0 right-0 top-4 z-50 mx-auto max-w-6xl transition-all duration-300 ${isScrolled
-                    ? "bg-card/80 shadow-lg shadow-primary/5 backdrop-blur-xl"
-                    : "bg-transparent"
+                ? "bg-card/80 shadow-lg shadow-primary/5 backdrop-blur-xl"
+                : "bg-transparent"
                 } rounded-2xl border border-white/10 px-6 py-3`}
         >
             <div className="flex items-center justify-between">
@@ -47,6 +47,11 @@ export function Navbar() {
                         <NavigationMenuItem>
                             <Link href="/products" className={navigationMenuTriggerStyle()}>
                                 Products
+                            </Link>
+                        </NavigationMenuItem>
+                        <NavigationMenuItem>
+                            <Link href="/automations" className={navigationMenuTriggerStyle()}>
+                                Automations
                             </Link>
                         </NavigationMenuItem>
                         <NavigationMenuItem>
