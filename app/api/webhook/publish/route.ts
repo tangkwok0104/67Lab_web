@@ -6,8 +6,19 @@ export async function POST(req: Request) {
         // 1. You should probably add a secret token check here to ensure 
         // only your n8n instance can post to this endpoint.
         const authHeader = req.headers.get('authorization');
-        if (authHeader !== `Bearer ${process.env.N8N_WEBHOOK_SECRET}`) {
-            return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+        const expectedSecret = process.env.N8N_WEBHOOK_SECRET;
+
+        // Strip out "Bearer " (case-insensitive) just in case the n8n credential doesn't include it. 
+        const token = authHeader?.replace(/^Bearer\s+/i, '').trim();
+
+        if (!expectedSecret) {
+            console.error('N8N_WEBHOOK_SECRET environment variable is not defined on the server!');
+            return NextResponse.json({ error: 'Server misconfiguration: missing secret in Vercel.' }, { status: 401 });
+        }
+
+        if (token !== expectedSecret) {
+            console.error(`Unauthorized request! Token received: [${authHeader}] vs Expected secret.`);
+            return NextResponse.json({ error: 'Unauthorized: Invalid secret token provided.' }, { status: 401 });
         }
         // 2. Parse the body sent by n8n
         const body = await req.json();
