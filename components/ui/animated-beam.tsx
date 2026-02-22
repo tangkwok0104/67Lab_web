@@ -18,7 +18,6 @@ export function AnimatedBeam({
     fromRef,
     toRef,
     curvature = 0,
-    reverse = false,
     duration = 2,
     delay = 0,
 }: AnimatedBeamProps) {
