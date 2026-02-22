@@ -14,16 +14,16 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: '67Lab.ai | Finance-Grade AI Automation',
+  title: 'Custom AI MVP Development & Automation Agency',
   description: 'Where financial precision meets AI intelligence. We build production-ready agentic workflows and custom LLM integrations.',
-  metadataBase: new URL('https://67lab.ai'),
+  metadataBase: new URL('https://www.67lab.ai'),
   alternates: {
     canonical: '/',
   },
   openGraph: {
-    title: '67Lab.ai | High-Velocity AI Architecture',
+    title: 'Custom AI MVP Development & Finance-Grade Automation',
     description: 'Stop using wrappers. Start using engineering. Finance-born automation for the AI era.',
-    url: 'https://67lab.ai',
+    url: 'https://www.67lab.ai',
     siteName: '67Lab',
     images: [
       {
