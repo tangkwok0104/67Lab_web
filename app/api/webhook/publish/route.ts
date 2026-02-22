@@ -22,7 +22,7 @@ export async function POST(req: Request) {
         }
         // 2. Parse the body sent by n8n
         const body = await req.json();
-        const { platform, content, published_at } = body;
+        const { platform, content, published_at, title, meta_description } = body;
 
         if (!content) {
             return NextResponse.json({ error: 'Missing content' }, { status: 400 });
@@ -49,7 +49,8 @@ export async function POST(req: Request) {
                     platform: platform || 'blog',
                     content: content,
                     slug: generatedSlug,
-                    title: `Automated Post from ${platform || 'n8n'}`,
+                    title: title || `Automated Post from ${platform || 'n8n'}`,
+                    meta_description: meta_description || null,
                     published_at: published_at || new Date().toISOString()
                 })
             });
