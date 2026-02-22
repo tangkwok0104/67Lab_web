@@ -7,6 +7,7 @@ import { Calendar, Clock, ArrowRight, BookOpen } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 // Placeholder blog posts - will be replaced with n8n automated content
 const blogPosts = [
@@ -37,6 +38,40 @@ const blogPosts = [
 ];
 
 export default function BlogPage() {
+    const [posts, setPosts] = useState<any[]>(blogPosts);
+
+    useEffect(() => {
+        const fetchPosts = async () => {
+            try {
+                const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+                const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+                if (!supabaseUrl || !supabaseAnonKey) return;
+
+                const res = await fetch(`${supabaseUrl}/rest/v1/blog_posts?select=*&order=published_at.desc`, {
+                    headers: { 'apikey': supabaseAnonKey }
+                });
+
+                if (res.ok) {
+                    const data = await res.json();
+
+                    const dynamicPosts = data.map((p: any) => ({
+                        title: p.title || 'Blog Entry',
+                        excerpt: p.content ? p.content.substring(0, 110).replace(/#/g, '') + '...' : 'No excerpt provided',
+                        date: p.published_at || p.created_at,
+                        readTime: '3 min read',
+                        category: p.platform === 'blog' ? 'Automated Post' : 'AI Automation',
+                        slug: p.slug
+                    }));
+
+                    setPosts([...dynamicPosts, ...blogPosts]); // Prepend dynamic posts to the placeholders
+                }
+            } catch (err) {
+                console.error("Failed to fetch dynamic posts:", err);
+            }
+        };
+        fetchPosts();
+    }, []);
+
     return (
         <div className="min-h-screen bg-background">
             <Navbar />
@@ -67,7 +102,7 @@ export default function BlogPage() {
 
                     {/* Blog Posts Grid */}
                     <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-                        {blogPosts.map((post, index) => (
+                        {posts.map((post, index) => (
                             <motion.div
                                 key={post.slug}
                                 initial={{ opacity: 0, y: 20 }}

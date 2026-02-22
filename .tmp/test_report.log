@@ -1,0 +1,10 @@
+QA Engineer Report:
+- Verified n8n webhook connection works post Verce env update.
+- Diagnosed root cause of missing blog post: previous API route was stubbed out and lacked logic to actually save the post into Supabase, and the Main Blog index lacked dynamic fetching.
+- Executed SQL to create `public.blog_posts` Supabase Table with RLS.
+- Upgraded `/app/api/webhook/publish` with secure Server API REST fetch logic.
+- Rewrote `/app/blog/page.tsx` to pull dynamically from Supabase API securely using proper Anon Key header setup.
+- Implemented robust new Dynamic route `/app/blog/[slug]/page.tsx` with react-markdown rendering.
+- Build test verified successful static analysis and deployment mapping.
+
+Status: Level 3 Feature Upgrade Complete. PASS
