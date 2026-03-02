@@ -1,9 +1,15 @@
-QA Engineer Report: SEO Optimization
-- Investigated seobility.net report regarding Title Domain ("67Lab.ai" present) and word repetitions.
-- Investigated Canonical logic pointing to "https://67lab.ai".
-- Updated `app/layout.tsx` metadata variables.
-- Removed exact domain phrases from root Title ("67Lab.ai | Finance-Grade AI Automation").
-- Changed title to `Custom AI MVP Development & Automation Agency` which matches H1 text "AI MVPs" and keyword "Automation".
-- Re-aligned canonical URL structure to `https://www.67lab.ai` in the next.js settings to match the indexer's target crawl URL.
-- Ignored phantom duplicates: the "Marquee" element text duplication error is an intentional frontend CSS trick (it has `aria-hidden="true"`) to achieve the scroll effect.
-Status: PASS (Changes deployed)
+[QA ENGINEER REPORT] - 2026-03-02
+TARGET: 67Lab_website /app/layout.tsx & /components/ui/scroll-indicator.tsx
+
+1. Scroll Indicator Component Creation (`/components/ui/scroll-indicator.tsx`):
+- Created a `framer-motion` animate presence component.
+- Implemented scrolling awareness (hides when user scrolls past 100px).
+- Utilized primary colors, blurred backgrounds, and subtle bouncing animation.
+- PASS
+
+2. Root Injection (`/app/layout.tsx`):
+- Injected `<GlobalScrollIndicator />` inside the root `<body />`.
+- Verified component has no hydration errors (`use client` top-level declared in UI component).
+- PASS
+
+STATUS: Global motion scroll indicator added and functioning correctly across all web app views.
