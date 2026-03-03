@@ -1,5 +1,10 @@
+# 67Lab.ai Website
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## Products Included
+- **Recepto-Ria**: AI Voice Receptionist
+- **SYS.CORE**: The AI Community Employee Discord Bot (communitybot.67lab.ai)
 ## Getting Started
 
 First, run the development server:
