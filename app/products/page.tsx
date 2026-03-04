@@ -22,11 +22,11 @@ const products = [
 
 const agents = [
     {
-        name: "SYS.CORE",
+        name: "Agent Otter",
         tagline: "The AI Community Employee",
         description: "Stop manually updating welcome messages. Deploy a contextual AI that reads your guidelines and dynamically answers member questions 24/7, just like a human moderator.",
         icon: <Bot className="h-10 w-10 text-primary" />,
-        slug: "https://communitybot.67lab.ai",
+        slug: "/products/agent-otter",
         externalLink: "https://communitybot.67lab.ai",
         status: "Live"
     }
@@ -164,8 +164,13 @@ export default function ProductsPage() {
 
                                     <div className="relative z-10 mt-auto flex items-center justify-between gap-4 pt-4 border-t border-white/10">
                                         <Button asChild variant="default" className="w-full gap-2 bg-primary text-primary-foreground hover:bg-primary/90">
-                                            <a href={agent.externalLink} target="_blank" rel="noopener noreferrer">
-                                                Go to App <ArrowUpRight className="h-4 w-4" />
+                                            <Link href={agent.slug}>
+                                                Learn More <ArrowRight className="h-4 w-4" />
+                                            </Link>
+                                        </Button>
+                                        <Button asChild variant="outline" size="icon" className="shrink-0 group/external">
+                                            <a href={agent.externalLink} target="_blank" rel="noopener noreferrer" title="Visit App">
+                                                <ArrowUpRight className="h-4 w-4 transition-transform group-hover/external:-translate-y-0.5 group-hover/external:translate-x-0.5" />
                                             </a>
                                         </Button>
                                     </div>
